@@ -22,6 +22,7 @@ public final class FrameTracker {
     private final CartFramesConfig config;
     private boolean active;
     private int step;
+    private int clickCount;
     private int runningFrames;
     private int lastFrames = -1;
     private int resultTicksRemaining;
@@ -91,6 +92,7 @@ public final class FrameTracker {
             if (seq.get(0).matches(player, held)) {
                 active = true;
                 step = 1;
+                clickCount = 1;
                 runningFrames = 0;
                 lastFrames = -1; // hide the previous result while a new run is in progress
                 resultTicksRemaining = 0;
@@ -98,14 +100,16 @@ public final class FrameTracker {
             return;
         }
 
-        if (step >= seq.size()) { reset(); return; }
+        if (clickCount >= config.activeMode.getMaxClicks()) {
+            completeRun();
+            return;
+        }
 
         if (seq.get(step).matches(player, held)) {
             step++;
-            if (step >= seq.size()) {
-                lastFrames = runningFrames; // save the final frame count
-                resultTicksRemaining = RESULT_LIFETIME_TICKS;
-                reset();                    // stop the timer
+            clickCount++;
+            if (clickCount >= config.activeMode.getMaxClicks()) {
+                completeRun();
             }
         } else {
             reset(); // wrong item for the expected next step -> reset the timer
@@ -115,7 +119,14 @@ public final class FrameTracker {
     private void reset() {
         active = false;
         step = 0;
+        clickCount = 0;
         runningFrames = 0;
+    }
+
+    private void completeRun() {
+        lastFrames = runningFrames; // save the final frame count
+        resultTicksRemaining = RESULT_LIFETIME_TICKS;
+        reset();                    // stop the timer
     }
 
     public boolean isActive()     { return active; }

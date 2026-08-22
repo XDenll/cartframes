@@ -45,6 +45,7 @@ public enum ComboMode {
 
     public String getDisplayName() { return displayName; }
     public List<Seq> getSequence() { return sequence; }
+    public int getMaxClicks() { return sequence.size(); }
 
     /**
      * One combo step. Per-step indexing (not "seen item") is what correctly
