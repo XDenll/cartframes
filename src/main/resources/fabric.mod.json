@@ -8,8 +8,8 @@
     "XDenll"
   ],
   "contact": {
-    "sources": "https://github.com/yourname/cartframes",
-    "issues": "https://github.com/yourname/cartframes/issues"
+    "sources": "https://github.com/XDenll/cartframes",
+    "issues": "https://github.com/XDenll/cartframes/issues"
   },
   "license": "MIT",
   "icon": "assets/cartframes/icon.png",
@@ -31,7 +31,8 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.discord": "https://discord.gg/jEGF5fb"
+        "modmenu.github": "https://github.com/XDenll/cartframes",
+        "modmenu.discord": "https://discord.gg/KapMqX75zQ"
       },
       "update_checker": true
     }
